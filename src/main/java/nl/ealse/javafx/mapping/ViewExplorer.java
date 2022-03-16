@@ -4,9 +4,11 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import javafx.scene.control.Control;
 import nl.ealse.javafx.mappers.MapperRegistry;
 import nl.ealse.javafx.mappers.PropertyMapper;
@@ -25,7 +27,7 @@ public class ViewExplorer {
   private static final String REFLECTION_ERROR = "Reflection error";
 
   private final Map<String, List<PropertyContext>> modelDescription = new HashMap<>();
-  private final List<MappingContext> mappingDescription = new ArrayList<>();
+  private final Set<MappingContext> mappingDescription = new HashSet<>();
 
   private final List<ControlContext> viewDescription;
 
@@ -50,7 +52,7 @@ public class ViewExplorer {
     return be.describeBean();
   }
 
-  public List<MappingContext> describeBean() {
+  public Set<MappingContext> describeBean() {
     for (ControlContext viewContext : viewDescription) {
       List<PropertyContext> modelPropertyList = modelDescription.get(viewContext.getId());
       if (modelPropertyList.size() == 1) {

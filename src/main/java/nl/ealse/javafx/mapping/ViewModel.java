@@ -4,7 +4,6 @@ package nl.ealse.javafx.mapping;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringJoiner;
@@ -14,8 +13,9 @@ import nl.ealse.javafx.mappers.PropertyMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** 
+/**
  * The ViewModel in the MVVM paradigm.
+ * 
  * @author ealse
  *
  */
@@ -25,9 +25,9 @@ public class ViewModel {
 
   private static final Map<Class<?>, ViewModel> INSTANCES = new HashMap<>();
 
-  private final List<MappingContext> mappingDescription;
+  private final Set<MappingContext> mappingDescription;
 
-  public ViewModel(Class<?> viewClass, Class<?> modelClass) {
+  private ViewModel(Class<?> viewClass, Class<?> modelClass) {
     mappingDescription = initialize(viewClass, modelClass);
   }
 
@@ -52,8 +52,9 @@ public class ViewModel {
   }
 
   /**
-   * Map the View to the Model.
-   * Missing beans in the Model structure are created via the default constructor.
+   * Map the View to the Model. Missing beans in the Model structure are created via the default
+   * constructor.
+   * 
    * @param <M> model class
    * @param view
    * @param model
@@ -119,6 +120,7 @@ public class ViewModel {
 
   /**
    * Map to model to the View.
+   * 
    * @param view
    * @param model
    */
@@ -171,7 +173,7 @@ public class ViewModel {
   }
 
 
-  private static List<MappingContext> initialize(Class<?> viewClass, Class<?> modelClass) {
+  private static Set<MappingContext> initialize(Class<?> viewClass, Class<?> modelClass) {
     ModelBeanExplorer modelExplorer = new ModelBeanExplorer(modelClass);
     ViewExplorer viewExplorer = new ViewExplorer(modelExplorer.describeBean(), viewClass);
     return viewExplorer.describeBean();
@@ -180,9 +182,7 @@ public class ViewModel {
   /**
    * Test method.
    * <p>
-   * Mapping is based on name equality of properties in both the view and the model. The properties
-   * in the view are leading. It's very easy to have mistakes, like defining a getter method on a
-   * {@link Label} which should not be mapped on the model.
+   * Mapping is based on name equality of properties in both the view and the model.
    * </p>
    * This method helps finding mapping errors during development phase.
    * 
@@ -193,10 +193,17 @@ public class ViewModel {
     Set<MappingContext> mappingDescription = new TreeSet<>();
     mappingDescription.addAll(initialize(viewClass, modelClass));
     StringJoiner sj = new StringJoiner("\n");
-    for (MappingContext pc : mappingDescription) {
-      sj.add(String.format("[INFO] Property %s \t uses PropertyMapper %s",
-          pc.getModelContext().getProperty().getName(),
-          pc.getPropertyMapper().getClass().getSimpleName()));
+    for (MappingContext mc : mappingDescription) {
+      String cn = mc.getModelContext().getProperty().getReadMethod().getDeclaringClass().getName();
+      String name = mc.getModelContext().getProperty().getName();
+      String mappingName = mc.getViewContext().getMappingName();
+      if (name.equals(mappingName)) {
+        sj.add(String.format("Property %s.%s \t\t uses PropertyMapper %s", cn, name,
+            mc.getPropertyMapper().getClass().getSimpleName()));
+      } else {
+        sj.add(String.format("Property %s.%s (%s)\t uses PropertyMapper %s", cn, name, mappingName,
+            mc.getPropertyMapper().getClass().getSimpleName()));
+      }
     }
     return sj.toString();
   }

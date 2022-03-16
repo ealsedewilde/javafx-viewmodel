@@ -2,9 +2,10 @@ package nl.ealse.test.model;
 
 
 public enum MartialState {
-  Single("Allenstaand"),
-  Married("Getrouwd"),
-  Divorced("Gescheiden");
+  SINGLE("Allenstaand"),
+  MARRIED("Getrouwd"),
+  DIVORCED("Gescheiden"),
+  PARTNERSHIP("geregistreed partnerschap");
   
    private final String description;
   

@@ -12,6 +12,8 @@ public class PersonController extends PersonView {
   @Mapping(mapOn = "homeAddress")
   private AddressController homeAddressController;
   
+  // Don't define a getter on the model!
+  // This will break the mapping
   private Person model;
   
   public PersonController() {
@@ -24,11 +26,16 @@ public class PersonController extends PersonView {
   }
   
   public void initialize() {
+    // when using fxml, this method will be called by the javafx.fxml.FXMLLoader
+    // it will initialize all javafx controls.
+    
+    // now initialize/load the model 
     ViewModel.modelToView(this, model);
   }
   
   public void save() {
     ViewModel.viewToModel(this, model);
+    // and call a service to persist the model.
   }
 
   public AddressController getBillingAddressController() {

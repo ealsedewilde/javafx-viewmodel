@@ -1,121 +1,72 @@
 package nl.ealse.javafx.mapping;
 
+import java.time.LocalDate;
 import javafx.embed.swing.JFXPanel;
-import javafx.scene.control.TextField;
+import nl.ealse.test.model.Address;
+import nl.ealse.test.model.MartialState;
+import nl.ealse.test.model.Person;
+import nl.ealse.test.view.PersonController;
+import org.apache.commons.lang3.StringUtils;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ViewModelTest {
+  
+  private PersonController controller;
+  private Person model;
   
   ViewModelTest() {
     new JFXPanel();
   }
   
   @Test
-  void testMapping1() {
-    ViewA view = new ViewA(true);
-    ModelA model = new ModelA();
-    model.setModelC(null);
-    ViewModel.viewToModel(view, model);
+  void testExplain() {
+     String s = ViewModel.explain(PersonController.class, Person.class);
+     System.out.println(s);
+     int count = StringUtils.countMatches(s, "uses");
+     Assertions.assertEquals(10, count);
   }
   
   @Test
-  void testMapping2() {
-    ViewA view = new ViewA(true);
-    ModelA model = new ModelA();
-    model.setModelC(null);
-    ViewModel.modelToView(view, model);
+  void testModelToView() {
+    String pre = controller.getHomeAddressController().getStreet().getText();
+    Assertions.assertEquals("", pre);
+    controller.initialize();
+    String post = controller.getHomeAddressController().getStreet().getText();
+    Assertions.assertEquals("Helena Hoeve", post);
   }
   
   @Test
-  void testMapping3() {
-    ViewA view = new ViewA(false);
-    view.getViewC().getViewD().getFoo().setText("bla");
-    ModelA model = new ModelA();
-    ViewModel.viewToModel(view, model);
+  void testViewToModel() {
+    controller.initialize();
+    String pre = controller.getHomeAddressController().getStreet().getText();
+    Assertions.assertEquals("Helena Hoeve", pre);
+    controller.getHomeAddressController().getStreet().setText("Crabethstraat");
+    controller.save();
+    String post = model.getHomeAddress().getStreet();
+    Assertions.assertEquals("Crabethstraat", post);
   }
   
-  @Test
-  void testMapping4() {
-    ViewA view = new ViewA(false);
-    view.getViewC().getViewD().getFoo().setText("bla");
-    ModelA model = new ModelA();
-    ViewModel.modelToView(view, model);
-  }
-  
-  public static class ViewA extends ViewB {
+  @BeforeEach
+  void setup() {
+    controller = new PersonController();
+    model = new Person();
+    controller.setModel(model);
     
-    public ViewA(boolean empty) {
-      if (empty) {
-        viewC = null;
-      }
-     }
+    Address billingAddress = new Address();
+    Address homeAddress = new Address();
+    homeAddress.setStreet("Helena Hoeve");
+    homeAddress.setNumber(26);
+    homeAddress.setCity("Gouda");
+    model.setBillingAddress(billingAddress);
+    model.setHomeAddress(homeAddress);
     
-  }
-  
-  public static class ViewB {
-    protected ViewC viewC = new ViewC();
-
-    public ViewC getViewC() {
-      return viewC;
-    }
-  }
-  
-  public static class ViewC {
-    private ViewD viewD = new ViewD();
-
-    public ViewD getViewD() {
-      return viewD;
-    }
+    model.setDateOfBirth(LocalDate.of(1954, 2, 16));
+    model.setMartialState(MartialState.MARRIED);
     
-  }
-  
-  public static class ViewD {
-    private TextField foo = new TextField();
-
-    public TextField getFoo() {
-      return foo;
-    }
-  }
-  
-  public static class ModelA extends ModelB {
-    
-  }
-  
-  public static class ModelB {
-    public ModelC getModelC() {
-      return modelC;
-    }
-
-    public void setModelC(ModelC modelC) {
-      this.modelC = modelC;
-    }
-
-    private ModelC modelC = new ModelC();
-  }
-  
-  public static class ModelC {
-    private ModelD modelD = new ModelD();
-
-    public ModelD getModelD() {
-      return modelD;
-    }
-
-    public void setModelD(ModelD modelD) {
-      this.modelD = modelD;
-    }
-    
-  }
-  
-  public static class ModelD {
-    private String foo = "Test";
-
-    public String getFoo() {
-      return foo;
-    }
-
-    public void setFoo(String foo) {
-      this.foo = foo;
-    }
+    model.setFoo("nvt");
+    model.setRelationNumber(1234L);
   }
 
 }

@@ -23,7 +23,7 @@ public class MappingContext implements Comparable<MappingContext> {
   
   @Override
   public int hashCode() {
-    return modelContext.getProperty().getName().hashCode();
+    return modelContext.getFullName().hashCode();
   }
 
   @Override
@@ -36,7 +36,7 @@ public class MappingContext implements Comparable<MappingContext> {
 
   @Override
   public int compareTo(MappingContext o) {
-    return modelContext.getProperty().getName().compareTo(o.modelContext.getProperty().getName());
+    return modelContext.getFullName().compareTo(o.modelContext.getFullName());
   }
 
   public PropertyContext getModelContext() {
