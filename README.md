@@ -52,7 +52,7 @@ The mapping has three attributes:
 * The properties in the Model must have a getter and setter
 * The javafx controls in the Controller must have a getter.
 * The javafx controls in the Controller must all be initialized before calling `ViewModel.modelToView(this, model);`
-* The model reference in the controller must not have a getter or a have `@mapping(ignore=true)`.
+* The model reference in the controller must not have a getter.
 * Whenever a needed POJO in the model is not initialized, the ViewModel will try to initialize it calling  a zero argument constructor. 
 
 ### Test your mapping
