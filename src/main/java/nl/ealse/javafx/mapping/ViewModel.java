@@ -10,6 +10,9 @@ import java.util.StringJoiner;
 import java.util.TreeSet;
 import javafx.scene.control.Control;
 import nl.ealse.javafx.mappers.PropertyMapper;
+import nl.ealse.javafx.mapping.explorer.MappingContextExplorer;
+import nl.ealse.javafx.mapping.explorer.PropertyContext;
+import nl.ealse.javafx.mapping.explorer.ViewClassPropertyContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -142,7 +145,7 @@ public class ViewModel {
     }
   }
 
-  private Object javaFXControl(Object view, ControlContext viewContext) {
+  private Object javaFXControl(Object view, ViewClassPropertyContext viewContext) {
     if (viewContext.getParentContext() != null) {
       Object obj = javaFXControl(view, viewContext.getParentContext());
       return invokeRead(obj, viewContext.getProperty().getReadMethod());
@@ -174,9 +177,8 @@ public class ViewModel {
 
 
   private static Set<MappingContext> initialize(Class<?> viewClass, Class<?> modelClass) {
-    ModelBeanExplorer modelExplorer = new ModelBeanExplorer(modelClass);
-    ViewExplorer viewExplorer = new ViewExplorer(modelExplorer.describeBean(), viewClass);
-    return viewExplorer.describeBean();
+    MappingContextExplorer viewExplorer = new MappingContextExplorer(viewClass, modelClass);
+    return viewExplorer.describeMapping();
   }
 
   /**

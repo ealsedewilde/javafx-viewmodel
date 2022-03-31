@@ -2,20 +2,25 @@ package nl.ealse.javafx.mapping;
 
 import javafx.scene.control.Control;
 import nl.ealse.javafx.mappers.PropertyMapper;
+import nl.ealse.javafx.mapping.explorer.PropertyContext;
+import nl.ealse.javafx.mapping.explorer.ViewClassPropertyContext;
 
 /**
- * Meta dat needed to map one property.
+ * Meta data needed to map one property.
  * @author ealse
  *
  */
 public class MappingContext implements Comparable<MappingContext> {
   
   private final PropertyContext modelContext;
-  private final ControlContext viewContext;
+  private final ViewClassPropertyContext viewContext;
   
+  /**
+   * Utility used to perform the mapping.
+   */
   private final PropertyMapper<Control, Object> propertyMapper;
   
-  public MappingContext(PropertyMapper<Control, Object> propertyMapper, ControlContext viewContext, PropertyContext modelContext) {
+  public MappingContext(PropertyMapper<Control, Object> propertyMapper, ViewClassPropertyContext viewContext, PropertyContext modelContext) {
     this.modelContext = modelContext;
     this.viewContext = viewContext;
     this.propertyMapper = propertyMapper;
@@ -43,7 +48,7 @@ public class MappingContext implements Comparable<MappingContext> {
     return modelContext;
   }
 
-  public ControlContext getViewContext() {
+  public ViewClassPropertyContext getViewContext() {
     return viewContext;
   }
 

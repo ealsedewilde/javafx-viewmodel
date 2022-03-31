@@ -50,4 +50,8 @@ public class PersonController extends PersonView {
     this.model = model;
   }
 
+  public Person getModel() {
+    return model;
+  }
+
 }

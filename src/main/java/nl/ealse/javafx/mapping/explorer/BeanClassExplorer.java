@@ -1,4 +1,4 @@
-package nl.ealse.javafx.mapping;
+package nl.ealse.javafx.mapping.explorer;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
@@ -8,6 +8,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import nl.ealse.javafx.mapping.MappingException;
+import nl.ealse.javafx.mapping.ViewModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,16 +19,15 @@ import org.slf4j.LoggerFactory;
  * @author ealse
  *
  */
-abstract class BeanExplorer<T> {
-  private static final Logger LOGGER = LoggerFactory.getLogger(BeanExplorer.class);
+public class BeanClassExplorer {
+  private static final Logger LOGGER = LoggerFactory.getLogger(BeanClassExplorer.class);
 
   private static final String REFLECTION_ERROR = "Reflection error";
 
   /**
-   * This Set will contain the result of the Java beanClass exploration. The key is the name of the
-   * property the value is the description of the property.
+   * This List contains the result of the Java beanClass exploration.
    */
-  private final List<T> propertyInfoList = new ArrayList<>();
+  private final List<PropertyContext> propertyInfoList = new ArrayList<>();
 
   /**
    * The Java beanClass to explore.
@@ -38,7 +39,7 @@ abstract class BeanExplorer<T> {
    * 
    * @param modelBean - The Java beanClass to explore.
    */
-  BeanExplorer(Class<?> beanClass) {
+  public BeanClassExplorer(Class<?> beanClass) {
     this.beanClass = beanClass;
 
   }
@@ -48,7 +49,7 @@ abstract class BeanExplorer<T> {
    * 
    * @return - the description of the beanClass
    */
-  public List<T> describeBean() {
+  public List<PropertyContext> describeBean() {
     examineBean(beanClass, null);
     return propertyInfoList;
   }
@@ -60,7 +61,7 @@ abstract class BeanExplorer<T> {
    * @param parentClass - the optional parent of the beanClass
    * @param beanClass - of the beanClass
    */
-  private void examineBean(Class<?> beanClass, T parent) {
+  private void examineBean(Class<?> beanClass, PropertyContext parent) {
     try {
       BeanInfo beanInfo = Introspector.getBeanInfo(beanClass);
       for (PropertyDescriptor property : beanInfo.getPropertyDescriptors()) {
@@ -85,12 +86,12 @@ abstract class BeanExplorer<T> {
    * @throws InvocationTargetException - n/a
    */
   private void examineBeanProperty(Class<?> clazz,
-      PropertyDescriptor property, T parent) throws IllegalAccessException, InvocationTargetException {
+      PropertyDescriptor property, PropertyContext parent) throws IllegalAccessException, InvocationTargetException {
     Class<?> type = property.getPropertyType();
     if (isBeanToExplore(type)) {
-       examineBean(type, newInstance(parent, property, true));
+       examineBean(type, newPropertyContext(parent, property, true));
      } else if (!"java.lang.Class".contentEquals(type.getName())) {
-       T t = newInstance(parent, property, false);
+       PropertyContext t = newPropertyContext(parent, property, false);
        if (t != null) {
          propertyInfoList.add(t);
        }
@@ -109,6 +110,9 @@ abstract class BeanExplorer<T> {
     }
     return !type.isEnum();
   }
-  
-  protected abstract T newInstance(T parent, PropertyDescriptor property, boolean bean) ;
+
+  private PropertyContext newPropertyContext(PropertyContext parent, PropertyDescriptor property,
+      boolean bean) {
+    return new PropertyContext(parent, property);
+  }
 }
