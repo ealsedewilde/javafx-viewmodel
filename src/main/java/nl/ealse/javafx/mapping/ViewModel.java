@@ -107,6 +107,8 @@ public class ViewModel {
     Object target = invokeRead(model, m);
     if (target == null && create) {
       target = createTarget(m.getReturnType());
+      Method w = modelContext.getProperty().getWriteMethod();
+      invokeWrite(model, w, target);
     }
     return target;
   }
@@ -175,6 +177,17 @@ public class ViewModel {
     }
   }
 
+  private void invokeWrite(Object source, Method m, Object parm) {
+    try {
+      if (source != null && m != null) {
+        m.invoke(source, parm);
+      }
+    } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+      LOGGER.error(MAPPING_ERROR, e);
+      throw new MappingException(MAPPING_ERROR, e);
+    }
+  }
+
 
   private static Set<MappingContext> initialize(Class<?> viewClass, Class<?> modelClass) {
     MappingContextExplorer viewExplorer = new MappingContextExplorer(viewClass, modelClass);
@@ -200,10 +213,10 @@ public class ViewModel {
       String name = mc.getModelContext().getProperty().getName();
       String mappingName = mc.getViewContext().getMappingName();
       if (name.equals(mappingName)) {
-        sj.add(String.format("Property %s.%s \t\t uses PropertyMapper %s", cn, name,
+        sj.add(String.format("[INFO] Property %s.%s \t\t uses PropertyMapper %s", cn, name,
             mc.getPropertyMapper().getClass().getSimpleName()));
       } else {
-        sj.add(String.format("Property %s.%s (%s)\t uses PropertyMapper %s", cn, name, mappingName,
+        sj.add(String.format("[INFO] Property %s.%s (%s)\t uses PropertyMapper %s", cn, name, mappingName,
             mc.getPropertyMapper().getClass().getSimpleName()));
       }
     }
