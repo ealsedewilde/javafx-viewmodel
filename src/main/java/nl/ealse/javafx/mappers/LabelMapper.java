@@ -14,7 +14,7 @@ public class LabelMapper<T> implements PropertyMapper<Label, T> {
   @Override
   public T getPropertyFromJavaFx(Label javaFx) {
     String text = javaFx.getText();
-    if (text.isEmpty()) {
+    if (text == null || text.isEmpty()) {
       return null;
     }
     return f.apply(text);

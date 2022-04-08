@@ -20,10 +20,10 @@ public class TextInputControlFormattingMapper<T,F>
   @Override
   public T getPropertyFromJavaFx(TextInputControl javaFx) {
     String text = javaFx.getText();
-    if (text.isEmpty()) {
+    if (text == null || text.isEmpty()) {
       return null;
     }
-    return from.apply(text, formatter);
+    return from.apply(text.trim(), formatter);
   }
 
   @Override

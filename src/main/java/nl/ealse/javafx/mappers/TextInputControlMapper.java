@@ -13,11 +13,11 @@ public class TextInputControlMapper<T> implements PropertyMapper<TextInputContro
 
   @Override
   public T getPropertyFromJavaFx(TextInputControl javaFx) {
-    String text = javaFx.getText().trim();
+    String text = javaFx.getText();
     if (text == null || text.isEmpty()) {
       return null;
     }
-    return f.apply(text);
+    return f.apply(text.trim());
   }
 
   @Override
