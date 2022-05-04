@@ -35,8 +35,8 @@ public class MapperRegistry {
     mappers.put("ComboBoxInteger", handle(new ComboBoxMapper<Integer>()));
     
     mappers.put("LabelString", handle(new LabelMapper<String>(s -> s)));
-    mappers.put("LabelInteger", handle(new LabelMapper<Integer>(s -> Integer.valueOf(s))));
-    mappers.put("LabelLong", handle(new LabelMapper<Long>(s -> Long.valueOf(s))));
+    mappers.put("LabelInteger", handle(new LabelMapper<Integer>(s -> ValueOf.integerValueOf(s))));
+    mappers.put("LabelLong", handle(new LabelMapper<Long>(s -> ValueOf.longValueOf(s))));
     
     BiFunction<String, DecimalFormat, BigDecimal> from = (s,f) -> { 
       try {
@@ -51,9 +51,9 @@ public class MapperRegistry {
     
     mappers.put("TextFieldString", handle(new TextInputControlMapper<String>(s -> s)));
     mappers.put("TextFieldInteger",
-        handle(new TextInputControlMapper<Integer>(s -> Integer.valueOf(s))));
+        handle(new TextInputControlMapper<Integer>(s -> ValueOf.integerValueOf(s))));
     mappers.put("TextFieldLong",
-        handle(new TextInputControlMapper<Integer>(s -> Integer.valueOf(s))));
+        handle(new TextInputControlMapper<Long>(s -> ValueOf.longValueOf(s))));
 
     mappers.put("TextFieldLocalDate",
         handle(new TextInputControlFormattingMapper<LocalDate, DateTimeFormatter>(formatConfig.getDateFormatter(),
@@ -91,6 +91,23 @@ public class MapperRegistry {
 
   public static void setFormatConfig(FormatConfig formatConfig) {
     MapperRegistry.formatConfig = formatConfig;
+  }
+  
+  private static class ValueOf {
+    private static Integer integerValueOf(String s) {
+      try {
+        return Integer.valueOf(s);
+      } catch (NumberFormatException e) {
+        return 0;
+      }
+    }
+    private static Long longValueOf(String s) {
+      try {
+        return Long.valueOf(s);
+      } catch (NumberFormatException e) {
+        return 0L;
+      }
+    }
   }
 
 }

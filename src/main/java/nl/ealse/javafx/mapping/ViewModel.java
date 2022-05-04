@@ -136,9 +136,9 @@ public class ViewModel {
         Control javaFxControl = (Control) javaFXControl(view, context.getViewContext());
         if (javaFxControl != null) {
           Object modelProperty = modelProperty(model, context.getModelContext());
-          if (modelProperty != null) {
+          //if (modelProperty != null) {
             mapper.mapPropertyToJavaFx(modelProperty, javaFxControl);
-          }
+          //}
         }
       } catch (IllegalArgumentException e) {
         LOGGER.error(MAPPING_ERROR, e);

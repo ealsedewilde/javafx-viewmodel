@@ -30,6 +30,8 @@ public class TextInputControlFormattingMapper<T,F>
   public void mapPropertyToJavaFx(T modelProperty, TextInputControl javaFx) {
     if (modelProperty != null) {
       javaFx.setText(to.apply(modelProperty, formatter));
+    } else {
+      javaFx.setText("");
     }
   }
 

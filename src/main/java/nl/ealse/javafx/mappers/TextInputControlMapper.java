@@ -22,7 +22,7 @@ public class TextInputControlMapper<T> implements PropertyMapper<TextInputContro
 
   @Override
   public void mapPropertyToJavaFx(T modelProperty, TextInputControl javaFx) {
-    javaFx.setText(modelProperty.toString());
+    javaFx.setText(modelProperty == null ? "" : modelProperty.toString());
   }
 
 }

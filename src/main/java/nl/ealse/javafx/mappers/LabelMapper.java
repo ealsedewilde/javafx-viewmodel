@@ -22,12 +22,7 @@ public class LabelMapper<T> implements PropertyMapper<Label, T> {
 
   @Override
   public void mapPropertyToJavaFx(T modelProperty, Label javaFx) {
-    if (modelProperty != null) {
-      javaFx.setText(modelProperty.toString());
-    } else {
-      javaFx.setText("0");
-    }
-
+    javaFx.setText(modelProperty == null ? "" : modelProperty.toString());
   }
 
 }
