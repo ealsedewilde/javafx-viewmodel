@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Enrich the PropertyContect with optional @Mapping annotation data.
+ * Enrich the {@link PropertyContext} with optional @Mapping annotation data.
  * @author ealse
  */
 public class ViewClassExplorer {

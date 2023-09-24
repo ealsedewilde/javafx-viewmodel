@@ -39,11 +39,11 @@ public class MappingContextExplorer {
     this.modelClassDescriptionMap = processModelClass(modelClass);
     this.viewDescription = processViewClass(viewClass);
   }
-  
+
   private Map<String, List<PropertyContext>> processModelClass(Class<?> modelClass) {
     BeanClassExplorer modelBeanExplorer = new BeanClassExplorer(modelClass);
     List<PropertyContext> modelClassDescription = modelBeanExplorer.describeBean();
-    
+
     Map<String, List<PropertyContext>> modelClassDescriptionMap = new HashMap<>();
     for (PropertyContext pc : modelClassDescription) {
       List<PropertyContext> pcList = modelClassDescriptionMap.get(pc.getName());
@@ -59,8 +59,8 @@ public class MappingContextExplorer {
   private List<ViewClassPropertyContext> processViewClass(Class<?> viewClass) {
     BeanClassExplorer viewBeanExplorer = new BeanClassExplorer(viewClass);
     List<PropertyContext> viewClassDescription = viewBeanExplorer.describeBean();
-    
-    for (Iterator<PropertyContext> itr =  viewClassDescription.iterator() ; itr.hasNext() ;) {
+
+    for (Iterator<PropertyContext> itr = viewClassDescription.iterator(); itr.hasNext();) {
       PropertyContext vc = itr.next();
       if (!Control.class.isAssignableFrom(vc.getProperty().getPropertyType())) {
         itr.remove();
@@ -73,6 +73,13 @@ public class MappingContextExplorer {
   public Set<MappingContext> describeMapping() {
     for (ViewClassPropertyContext viewContext : viewDescription) {
       List<PropertyContext> modelPropertyList = modelClassDescriptionMap.get(viewContext.getId());
+      if (modelPropertyList == null) {
+        LOGGER.warn(
+            String.format(
+                "Unable t0 find property in model for %s. \n "
+                + "Is annotation '@Mapping(ignore = true)' missing on the property in the view?"),
+            viewContext.getId());
+      }
       if (modelPropertyList.size() == 1) {
         PropertyContext modelContext = modelPropertyList.get(0);
         mappingDescription.add(buildMappingContext(viewContext, modelContext));
@@ -80,7 +87,7 @@ public class MappingContextExplorer {
         String mappingName = viewContext.getMappingName();
         int matches = 0;
         int ix = 0;
-        for (int i = 0 ; i < modelPropertyList.size() ; i++) {
+        for (int i = 0; i < modelPropertyList.size(); i++) {
           PropertyContext modelContext = modelPropertyList.get(i);
           String fullName = modelContext.getFullName();
           int count = countMatches(mappingName, fullName);
@@ -94,7 +101,7 @@ public class MappingContextExplorer {
     }
     return mappingDescription;
   }
-  
+
   private int countMatches(String viewName, String modelName) {
     String[] viewSplit = viewName.split("[.]");
     int viewIx = viewSplit.length;
@@ -104,7 +111,7 @@ public class MappingContextExplorer {
     while (viewIx > 0 && modelIx > 0 && viewSplit[--viewIx].equals(modelSplit[--modelIx])) {
       count++;
     }
-    
+
     return count;
   }
 
@@ -114,8 +121,7 @@ public class MappingContextExplorer {
     String modelPropertyType = modelContext.getProperty().getPropertyType().getSimpleName();
     PropertyMapper<Control, Object> pm =
         findPropertyMapper(viewProperty, viewContext.getMapping(), modelPropertyType);
-    MappingContext mappingContext =
-        new MappingContext(pm, viewContext, modelContext);
+    MappingContext mappingContext = new MappingContext(pm, viewContext, modelContext);
     return mappingContext;
   }
 
@@ -144,7 +150,7 @@ public class MappingContextExplorer {
     }
     return propertyMapper;
   }
-  
+
   private String mappedType(String type) {
     switch (type) {
       default:
