@@ -76,9 +76,9 @@ public class MappingContextExplorer {
       if (modelPropertyList == null) {
         LOGGER.warn(
             String.format(
-                "Unable t0 find property in model for %s. \n "
-                + "Is annotation '@Mapping(ignore = true)' missing on the property in the view?"),
-            viewContext.getId());
+                "Unable to find property in model for %s. \n "
+                + "Is annotation '@Mapping(ignore = true)' missing on the property in the view?",
+            viewContext.getId()));
       }
       if (modelPropertyList.size() == 1) {
         PropertyContext modelContext = modelPropertyList.get(0);
