@@ -67,7 +67,7 @@ public class BeanClassExplorer {
       for (PropertyDescriptor property : beanInfo.getPropertyDescriptors()) {
         Method readMethod = property.getReadMethod();
         if (readMethod != null) {
-          examineBeanProperty(beanClass, property, parent);
+          examineBeanProperty(property, parent);
         }
       }
     } catch (IntrospectionException | IllegalAccessException | IllegalArgumentException
@@ -85,16 +85,14 @@ public class BeanClassExplorer {
    * @throws IllegalAccessException - n/a
    * @throws InvocationTargetException - n/a
    */
-  private void examineBeanProperty(Class<?> clazz, PropertyDescriptor property,
+  private void examineBeanProperty(PropertyDescriptor property,
       PropertyContext parent) throws IllegalAccessException, InvocationTargetException {
     Class<?> type = property.getPropertyType();
     if (isBeanToExplore(type)) {
-      examineBean(type, newPropertyContext(parent, property, true));
+      examineBean(type, new PropertyContext(parent, property));
     } else if (!"java.lang.Class".contentEquals(type.getName())) {
-      PropertyContext t = newPropertyContext(parent, property, false);
-      if (t != null) {
-        propertyInfoList.add(t);
-      }
+      PropertyContext t = new PropertyContext(parent, property);
+      propertyInfoList.add(t);
     }
   }
 
@@ -111,8 +109,4 @@ public class BeanClassExplorer {
     return !type.isEnum();
   }
 
-  private PropertyContext newPropertyContext(PropertyContext parent, PropertyDescriptor property,
-      boolean bean) {
-    return new PropertyContext(parent, property);
-  }
 }

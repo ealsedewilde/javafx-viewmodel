@@ -8,7 +8,8 @@ import java.lang.annotation.Target;
 import nl.ealse.javafx.mappers.PropertyMapper;
 
 /**
- * Optional annotation to steer the data mapping process. 
+ * Optional annotation to steer the data mapping process.
+ *
  * @author ealse
  *
  */
@@ -22,6 +23,7 @@ public @interface Mapping {
   /**
    * Ignore this javafx control in the data mapping.
    * This is a Field annotation attribute
+   *
    * @return
    */
   public boolean ignore() default false;
@@ -30,6 +32,7 @@ public @interface Mapping {
    * Link a specific {@link PropertyMapper} to this javafx control. Use this option in case where one
    * of the standard PropertyMappers can't handle this javafx control.
    * This is a Field annotation attribute
+   *
    * @return
    */
   @SuppressWarnings("rawtypes")

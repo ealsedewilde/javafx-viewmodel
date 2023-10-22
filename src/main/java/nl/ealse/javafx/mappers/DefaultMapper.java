@@ -15,13 +15,13 @@ public class DefaultMapper implements PropertyMapper<Control, Object> {
 
   @Override
   public Object getPropertyFromJavaFx(Control javaFx) {
-    LOGGER.warn("No mapping for" + javaFx.getClass().getSimpleName());
+    LOGGER.warn("No mapping for {}", javaFx.getClass().getSimpleName());
     return null;
   }
 
   @Override
   public void mapPropertyToJavaFx(Object modelProperty, Control javaFx) {
-    LOGGER.warn("No mapping for" + modelProperty.getClass().getSimpleName());
+    LOGGER.warn("No mapping for {}", modelProperty.getClass().getSimpleName());
   }
 
 }

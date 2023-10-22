@@ -79,8 +79,7 @@ public class MappingContextExplorer {
                 "Unable to find property in model for %s. \n "
                 + "Is annotation '@Mapping(ignore = true)' missing on the property in the view?",
             viewContext.getId()));
-      }
-      if (modelPropertyList.size() == 1) {
+      } else if (modelPropertyList.size() == 1) {
         PropertyContext modelContext = modelPropertyList.get(0);
         mappingDescription.add(buildMappingContext(viewContext, modelContext));
       } else {
@@ -121,8 +120,7 @@ public class MappingContextExplorer {
     String modelPropertyType = modelContext.getProperty().getPropertyType().getSimpleName();
     PropertyMapper<Control, Object> pm =
         findPropertyMapper(viewProperty, viewContext.getMapping(), modelPropertyType);
-    MappingContext mappingContext = new MappingContext(pm, viewContext, modelContext);
-    return mappingContext;
+    return new MappingContext(pm, viewContext, modelContext);
   }
 
   private PropertyMapper<Control, Object> findPropertyMapper(PropertyDescriptor viewProperty,
