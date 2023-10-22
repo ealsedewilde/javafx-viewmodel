@@ -4,7 +4,7 @@ import javafx.scene.control.Control;
 
 /**
  * All PropertyMapper implementatiions must umplement this interface.
- * 
+ *
  * @author ealse
  *
  * @param <F> - the javafx control in the form

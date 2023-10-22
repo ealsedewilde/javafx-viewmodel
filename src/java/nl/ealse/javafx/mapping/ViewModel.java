@@ -14,7 +14,7 @@ import nl.ealse.javafx.mappers.PropertyMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** 
+/**
  * The ViewModel in the MVVM paradigm.
  * @author ealse
  *
@@ -185,7 +185,7 @@ public class ViewModel {
    * {@link Label} which should not be mapped on the model.
    * </p>
    * This method helps finding mapping errors during development phase.
-   * 
+   *
    * @param view - input for the explain report
    * @param model - to relate to the view
    */

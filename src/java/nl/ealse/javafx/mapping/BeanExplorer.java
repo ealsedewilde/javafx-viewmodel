@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Retrieve all information on a Java Bean Class that is needed for the {@link ViewModel}.
- * 
+ *
  * @author ealse
  *
  */
@@ -35,7 +35,7 @@ abstract class BeanExplorer<T> {
 
   /**
    * Construct an instance around a model beanClass.
-   * 
+   *
    * @param modelBean - The Java beanClass to explore.
    */
   BeanExplorer(Class<?> beanClass) {
@@ -45,7 +45,7 @@ abstract class BeanExplorer<T> {
 
   /**
    * Make a description of the Java beanClass.
-   * 
+   *
    * @return - the description of the beanClass
    */
   public List<T> describeBean() {
@@ -56,7 +56,7 @@ abstract class BeanExplorer<T> {
   /**
    * Examine a Java beanClass can be an iterative process. A beanClass may contain child Java beanClass which must
    * be examined as well.
-   * 
+   *
    * @param parentClass - the optional parent of the beanClass
    * @param beanClass - of the beanClass
    */
@@ -78,7 +78,7 @@ abstract class BeanExplorer<T> {
 
   /**
    * Examine a property of the Java beanClass that is currently examined.
-   * 
+   *
    * @param clazz - of aBean
    * @param property - description of the property
    * @throws IllegalAccessException - n/a
@@ -99,7 +99,7 @@ abstract class BeanExplorer<T> {
 
   /**
    * Determine if the property is a Java beanClass that has to be explored.
-   * 
+   *
    * @param type - property type
    * @return
    */

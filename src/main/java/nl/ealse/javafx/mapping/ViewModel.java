@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The ViewModel in the MVVM paradigm.
- * 
+ *
  * @author ealse
  *
  */
@@ -57,7 +57,7 @@ public class ViewModel {
   /**
    * Map the View to the Model. Missing beans in the Model structure are created via the default
    * constructor.
-   * 
+   *
    * @param <M> model class
    * @param view
    * @param model
@@ -125,7 +125,7 @@ public class ViewModel {
 
   /**
    * Map to model to the View.
-   * 
+   *
    * @param view
    * @param model
    */
@@ -200,7 +200,7 @@ public class ViewModel {
    * Mapping is based on name equality of properties in both the view and the model.
    * </p>
    * This method helps finding mapping errors during development phase.
-   * 
+   *
    * @param view - input for the explain report
    * @param model - to relate to the view
    */

@@ -73,7 +73,7 @@ public class MapperRegistry {
 
   /**
    * Add an additional standard {@link PropertyMapper}.
-   * 
+   *
    * @param propertyMapper - the {@link PropertyMapper} to register
    * @param javaFxClass - class to link with the {@link PropertyMapper}
    * @param modelClass - class to link with the {@link PropertyMapper}

@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Enrich the {@link PropertyContext} with optional @Mapping annotation data.
+ *
  * @author ealse
  */
 public class ViewClassExplorer {
@@ -39,7 +40,7 @@ public class ViewClassExplorer {
 
   /**
    * Construct a <code>ViewClassPropertyContext</code> by adding
-   * 
+   *
    * @param pc
    * @return
    */
@@ -61,7 +62,7 @@ public class ViewClassExplorer {
 
   /**
    * Find possible {@link Mapping} annotation on the java fx Control.
-   * 
+   *
    * @param readMethod
    * @param name
    * @return @Mapping annotation or null

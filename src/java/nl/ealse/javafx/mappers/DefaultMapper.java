@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Non function placeholder mapper.
- * 
+ *
  * @author ealse
  *
  */

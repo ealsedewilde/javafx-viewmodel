@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Make a description of both View structure that matches the Model structure.
- * 
+ *
  * @author ealse
  *
  */
