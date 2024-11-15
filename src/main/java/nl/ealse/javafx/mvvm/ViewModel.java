@@ -1,5 +1,4 @@
-
-package nl.ealse.javafx.mapping;
+package nl.ealse.javafx.mvvm;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -10,6 +9,8 @@ import java.util.StringJoiner;
 import java.util.TreeSet;
 import javafx.scene.control.Control;
 import nl.ealse.javafx.mappers.PropertyMapper;
+import nl.ealse.javafx.mapping.MappingContext;
+import nl.ealse.javafx.mapping.MappingException;
 import nl.ealse.javafx.mapping.explorer.MappingContextExplorer;
 import nl.ealse.javafx.mapping.explorer.PropertyContext;
 import nl.ealse.javafx.mapping.explorer.ViewClassPropertyContext;

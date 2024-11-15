@@ -13,15 +13,15 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>21</java.version>
-    <javafx.version>21.0.1</javafx.version>
-    <checkstyle.version>9.3</checkstyle.version>
+    <javafx.version>23</javafx.version>
+    <checkstyle.version>10.20.1</checkstyle.version>
   </properties>
 
   <build>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.11.0</version>
+        <version>3.13.0</version>
         <configuration>
           <release>${java.version}</release>
         </configuration>
@@ -29,7 +29,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>3.3.0</version>
+        <version>3.6.0</version>
         <executions>
           <execution>
             <phase>generate-resources</phase>
@@ -52,7 +52,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>3.1.2</version>
+          <version>3.2.1</version>
         </plugin>
     </plugins>
   </build>
@@ -71,19 +71,19 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>2.0.9</version>
+      <version>2.0.16</version>
     </dependency>
 
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
-      <version>2.0.9</version>
+      <version>2.0.16</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>5.10.0</version>
+      <version>5.11.3</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -95,7 +95,7 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
-      <version>3.13.0</version>
+      <version>3.17.0</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

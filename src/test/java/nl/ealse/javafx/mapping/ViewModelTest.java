@@ -2,6 +2,7 @@ package nl.ealse.javafx.mapping;
 
 import java.time.LocalDate;
 import javafx.embed.swing.JFXPanel;
+import nl.ealse.javafx.mvvm.ViewModel;
 import nl.ealse.test.model.Address;
 import nl.ealse.test.model.MartialState;
 import nl.ealse.test.model.Person;

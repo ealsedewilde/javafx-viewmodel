@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import nl.ealse.javafx.mapping.MappingException;
-import nl.ealse.javafx.mapping.ViewModel;
+import nl.ealse.javafx.mvvm.ViewModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

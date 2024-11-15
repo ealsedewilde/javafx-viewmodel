@@ -1,7 +1,7 @@
 package nl.ealse.test.view;
 
 import nl.ealse.javafx.mapping.Mapping;
-import nl.ealse.javafx.mapping.ViewModel;
+import nl.ealse.javafx.mvvm.ViewModel;
 import nl.ealse.test.model.Person;
 
 public class PersonController extends PersonView {
