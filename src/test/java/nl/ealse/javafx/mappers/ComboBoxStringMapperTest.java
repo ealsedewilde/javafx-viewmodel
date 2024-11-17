@@ -1,17 +1,16 @@
 package nl.ealse.javafx.mappers;
 
-import javafx.embed.swing.JFXPanel;
 import javafx.scene.control.ComboBox;
+import nl.ealse.test.FXBase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class ComboBoxStringMapperTest {
+class ComboBoxStringMapperTest extends FXBase {
   
   private ComboBoxMapper<String> sut = new ComboBoxMapper<>();
   
   @Test
   void getPropertyFromJavaFx() {
-    new JFXPanel();
     ComboBox<String> box = new ComboBox<>();
     box.setValue("1234");
     String result = sut.getPropertyFromJavaFx(box);
@@ -20,7 +19,6 @@ class ComboBoxStringMapperTest {
   
   @Test
   void mapPropertyToJavaFx() {
-    new JFXPanel();
     ComboBox<String> box = new ComboBox<>();
     sut.mapPropertyToJavaFx("1234", box);
     String result = box.getValue();    

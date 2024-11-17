@@ -1,12 +1,12 @@
 package nl.ealse.javafx.mappers;
 
 import java.time.LocalDate;
-import javafx.embed.swing.JFXPanel;
 import javafx.scene.control.DatePicker;
+import nl.ealse.test.FXBase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class DatePickerMapperTest {
+class DatePickerMapperTest extends FXBase {
 
   private DatePickerMapper sut = new DatePickerMapper();
 
@@ -14,7 +14,6 @@ class DatePickerMapperTest {
 
   @Test
   void getPropertyFromJavaFx() {
-    new JFXPanel();
     DatePicker dp = new DatePicker();
     dp.setValue(date);
     LocalDate result = sut.getPropertyFromJavaFx(dp);
@@ -23,7 +22,6 @@ class DatePickerMapperTest {
 
   @Test
   void mapPropertyToJavaFx() {
-    new JFXPanel();
     DatePicker dp = new DatePicker();
     sut.mapPropertyToJavaFx(date, dp);
     Assertions.assertEquals(date, dp.getValue());

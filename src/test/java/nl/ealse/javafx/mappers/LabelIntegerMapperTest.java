@@ -1,17 +1,16 @@
 package nl.ealse.javafx.mappers;
 
-import javafx.embed.swing.JFXPanel;
 import javafx.scene.control.Label;
+import nl.ealse.test.FXBase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class LabelIntegerMapperTest {
+class LabelIntegerMapperTest extends FXBase {
 
   private final LabelMapper<Integer> sut = new LabelMapper<>(s -> Integer.valueOf(s));
 
   @Test
   void getPropertyFromJavaFx() {
-    new JFXPanel();
     Label lbl = new Label();
     lbl.setText("1234");
     Integer result = sut.getPropertyFromJavaFx(lbl);
@@ -20,7 +19,6 @@ class LabelIntegerMapperTest {
 
   @Test
   void mapPropertyToJavaFx() {
-    new JFXPanel();
     Label lbl = new Label();
     sut.mapPropertyToJavaFx(Integer.valueOf(1234), lbl);
     Assertions.assertEquals("1234", lbl.getText());

@@ -1,11 +1,11 @@
 package nl.ealse.javafx.mappers;
 
-import javafx.embed.swing.JFXPanel;
 import javafx.scene.control.TextField;
+import nl.ealse.test.FXBase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class TextInputControlStringMapperTest {
+class TextInputControlStringMapperTest extends FXBase {
 
   private final TextInputControlMapper<String> sut = new TextInputControlMapper<>(s -> s);
 
@@ -13,7 +13,6 @@ class TextInputControlStringMapperTest {
 
   @Test
   void getPropertyFromJavaFx() {
-    new JFXPanel();
     TextField tf = new TextField();
     tf.setText(s);
     String result = sut.getPropertyFromJavaFx(tf);
@@ -22,7 +21,6 @@ class TextInputControlStringMapperTest {
 
   @Test
   void mapPropertyToJavaFx() {
-    new JFXPanel();
     TextField tf = new TextField();
     sut.mapPropertyToJavaFx(s, tf);
     Assertions.assertEquals(s, tf.getText());

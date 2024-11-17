@@ -1,8 +1,8 @@
 package nl.ealse.javafx.mapping;
 
 import java.time.LocalDate;
-import javafx.embed.swing.JFXPanel;
 import nl.ealse.javafx.mvvm.ViewModel;
+import nl.ealse.test.FXBase;
 import nl.ealse.test.model.Address;
 import nl.ealse.test.model.MartialState;
 import nl.ealse.test.model.Person;
@@ -12,14 +12,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ViewModelTest {
+class ViewModelTest extends FXBase {
   
   private PersonController controller;
   private Person model;
-  
-  ViewModelTest() {
-    new JFXPanel();
-  }
   
   @Test
   void testExplain() {
