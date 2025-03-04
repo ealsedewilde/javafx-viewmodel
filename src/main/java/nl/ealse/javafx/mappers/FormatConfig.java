@@ -19,7 +19,7 @@ public class FormatConfig {
   
   private void initialize() {
     locale = Locale.getDefault();
-    dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy").withLocale(locale);
+    dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy", locale);
     decimalFormat = (DecimalFormat) NumberFormat.getNumberInstance(locale);
     decimalFormat.applyPattern("###,##0.00");
     
