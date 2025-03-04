@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -28,15 +27,15 @@ public class MapperRegistry {
 
     mappers.put("DatePickerLocalDate", handle(new DatePickerMapper()));
 
-    mappers.put("ChoiceBoxString", handle(new ChoiceBoxMapper<String>()));
-    mappers.put("ChoiceBoxInteger", handle(new ChoiceBoxMapper<Integer>()));
+    mappers.put("ChoiceBoxString", handle(new ChoiceBoxMapper<>()));
+    mappers.put("ChoiceBoxInteger", handle(new ChoiceBoxMapper<>()));
 
-    mappers.put("ComboBoxString", handle(new ComboBoxMapper<String>()));
-    mappers.put("ComboBoxInteger", handle(new ComboBoxMapper<Integer>()));
+    mappers.put("ComboBoxString", handle(new ComboBoxMapper<>()));
+    mappers.put("ComboBoxInteger", handle(new ComboBoxMapper<>()));
 
-    mappers.put("LabelString", handle(new LabelMapper<String>(s -> s)));
-    mappers.put("LabelInteger", handle(new LabelMapper<Integer>(s -> ValueOf.integerValueOf(s))));
-    mappers.put("LabelLong", handle(new LabelMapper<Long>(s -> ValueOf.longValueOf(s))));
+    mappers.put("LabelString", handle(new LabelMapper<>(s -> s)));
+    mappers.put("LabelInteger", handle(new LabelMapper<>(s -> ValueOf.integerValueOf(s))));
+    mappers.put("LabelLong", handle(new LabelMapper<>(s -> ValueOf.longValueOf(s))));
 
     BiFunction<String, DecimalFormat, BigDecimal> from = (s, f) -> {
       try {
@@ -46,21 +45,21 @@ public class MapperRegistry {
       }
     };
     mappers.put("TextFieldBigDecimal",
-        handle(new TextInputControlFormattingMapper<BigDecimal, DecimalFormat>(
+        handle(new TextInputControlFormattingMapper<>(
             formatConfig.getDecimalFormat(), from, (t, f) -> f.format(t))));
 
-    mappers.put("TextFieldString", handle(new TextInputControlMapper<String>(s -> s)));
+    mappers.put("TextFieldString", handle(new TextInputControlMapper<>(s -> s)));
     mappers.put("TextFieldInteger",
-        handle(new TextInputControlMapper<Integer>(s -> ValueOf.integerValueOf(s))));
+        handle(new TextInputControlMapper<>(s -> ValueOf.integerValueOf(s))));
     mappers.put("TextFieldLong",
-        handle(new TextInputControlMapper<Long>(s -> ValueOf.longValueOf(s))));
+        handle(new TextInputControlMapper<>(s -> ValueOf.longValueOf(s))));
 
     mappers.put("TextFieldLocalDate",
-        handle(new TextInputControlFormattingMapper<LocalDate, DateTimeFormatter>(
+        handle(new TextInputControlFormattingMapper<>(
             formatConfig.getDateFormatter(), (s, f) -> LocalDate.parse(s, f),
             (t, f) -> t.format(f))));
 
-    mappers.put("TextAreaString", handle(new TextInputControlMapper<String>(s -> s)));
+    mappers.put("TextAreaString", handle(new TextInputControlMapper<>(s -> s)));
   }
 
   private MapperRegistry() {
